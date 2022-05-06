@@ -1,0 +1,17 @@
+releases:
+    - name: mlflow
+      namespace: mlflow
+      chart: ./contrib/mlflow
+      values:
+      - ./values/mlflow/{{ .Environment.Name }}/values.yaml
+      - backendStore:
+          mysql:
+            username: {{ requiredEnv "mlflow_mysql_username" }}
+            password: {{ requiredEnv "mlflow_mysql_password" }}
+            host: {{ requiredEnv "mlflow_mysql_host" }}
+            port: {{ requiredEnv "mlflow_mysql_port" }}
+            database: {{ requiredEnv "mlflow_mysql_database" }}
+
+environments:
+  nonprod:
+  prod:
